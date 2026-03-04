@@ -1,6 +1,4 @@
-# 忽略 states 文件夹
-.states/
-
-# 忽略 artifacts 文件夹
-artifacts/
-
+*
+!Mao/
+!Mao/*
+!.gitignore
