@@ -108,9 +108,14 @@ event SaleFinalized(uint256 totalRaised, uint256 totalTokensSold);
         if (!finalized && _from != address(this)) {
         require(false, "Tokens are locked until sale is finalized");
         }
+        // 如果通过了上面的检查（比如已经结算了），则调用母类（super）原本的转账功能
         return super.transferFrom(_from, _to, _value);
     }
 
+    /**
+     * @dev 第二部分：发售结算（老板提款机）
+     * 该函数负责结束发售、解锁代币交易、并将筹集的 ETH 转给项目方。
+     */
     function finalizeSale() public payable {
         require(msg.sender == projectOwner, "Only Owner can call the function");
         require(!finalized, "Sale already finalized");
